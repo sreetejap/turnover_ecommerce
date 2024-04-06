@@ -28,6 +28,13 @@ export const categoryRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ctx}) => {
         return await ctx.db.category.findMany()
     }),
+  
+  getPaginated: publicProcedure.input(z.object({page: z.number()})).query(async ({ctx, input}) => {
+    return await ctx.db.category.findMany({
+      skip: (input.page - 1) * 6,
+      take: 6
+    })
+  }),
 
   getByID: publicProcedure
     .input(z.object({id: z.number()})).query(async ({ctx, input}) => {

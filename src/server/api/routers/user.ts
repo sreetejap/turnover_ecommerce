@@ -41,6 +41,16 @@ export const userRouter = createTRPCRouter({
     })
   }),
 
+  getUserByEmail: publicProcedure
+    .input(z.object({email: z.string().email({ message: "Invalid email address" })}))
+    .query(async ({ctx, input}) => {
+      return await ctx.db.user.findUnique({
+        where: {
+          email: input.email
+        }
+      })
+    }),
+
   addCategoryToUser: publicProcedure.input(z.object({id: z.number(), categoryName: z.string().min(3)})).mutation(async ({ctx, input}) => {
     const res = await ctx.db.user.findUnique({
       where: {

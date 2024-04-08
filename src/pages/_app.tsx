@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { api } from "@component/utils/api";
 
 import "@component/styles/globals.css";
+import Layout from "@component/components/layout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,7 +13,9 @@ const inter = Inter({
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <main className={`font-sans ${inter.variable}`}>
+      <Layout>
       <Component {...pageProps} />
+      </Layout>
     </main>
   );
 };
